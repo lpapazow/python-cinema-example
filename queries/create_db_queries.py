@@ -1,0 +1,60 @@
+CREATE_MOVIES_TABLE = '''CREATE TABLE "Movies" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "rating" TEXT NOT NULL
+)'''
+
+CREATE_PROJECTIONS_TABLE = '''CREATE TABLE "Projections" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "movie_id" INTEGER,
+    "m_type" TEXT NOT NULL,
+    "m_date" TEXT NOT NULL,
+    "m_time" TEXT NOT NULL,
+     FOREIGN KEY (movie_id) REFERENCES movies(id)
+)'''
+
+CREATE_USERS_TABLE = '''CREATE TABLE "Users" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "username" TEXT NOT NULL,
+    "password" VARCHAR(65) NOT NULL
+)'''
+
+CREATE_RESERVATIONS_TABLE = '''CREATE TABLE "Reservations"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user_id" INTEGER,
+    "projection_id" INTEGER,
+    "row" INTEGER,
+    "col" INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (projection_id) REFERENCES projections(id)
+)'''
+
+DROP_MOVIES_TABLE = '''
+    DROP TABLE IF EXISTS MOVIES
+'''
+
+DROP_PROJECTIONS_TABLE = '''
+    DROP TABLE IF EXISTS PROJECTIONS
+'''
+
+DROP_USERS_TABLE = '''
+    DROP TABLE IF EXISTS USERS
+'''
+
+DROP_RESERVATIONS_TABLE = '''
+    DROP TABLE IF EXISTS RESERVATIONS
+'''
+
+CREATE_INITIAL_MOVEIS = '''
+    INSERT INTO MOVIES (NAME, RATING)
+    VALUES (?, ?)
+'''
+
+CREATE_INITIAL_PROJECTIONS = '''
+    INSERT INTO PROJECTIONS (MOVIE_ID, M_TYPE, M_DATE, M_TIME)
+    VALUES (?, ?, ?, ?)
+'''
+
+INITIAL_MOVIES = [['The Hunger Games: Catching Fire', "7.9"], ["Wreck-It-Ralph", "7.8"], ["Her", "8.3"]]
+
+INITIAL_PROJECTIONS = [[1, '3D','2014-04-01', "19:10"], [1, '2D','2014-04-01', "19:00"], [1, '4DX','2014-04-02', "21:00"], [3, '2D','2014-04-05', "20:20"], [2, '3D','2014-04-02', "22:00"], [2, '2D','2014-04-02', "19:30"]]
